@@ -1,8 +1,8 @@
 # boilertemp-CLI
 
-## Installation
-
 ## Get started
+
+### Installation
 
 ### Available flags
 
@@ -13,3 +13,5 @@
 --git       Initialize git for selected template
 --intall    Automatically install dependencies, prefer npm
 ```
+
+### How to use
