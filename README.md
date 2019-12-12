@@ -1,3 +1,9 @@
+<p align="Center">
+  <img src="https://i.ibb.co/fMvzf9B/Asset-3-3x.png" alt="CLI-boilertemp_logo" border="0" />
+<p/>
+<br/>
+<br/>
+
 # boilertemp-CLI
 A Command line interface to kickstart your coding. The boilertemp-CLI lets you create boilerplate-code from templates, and is a easy way to get going fast.
 
