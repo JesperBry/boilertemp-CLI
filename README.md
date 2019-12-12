@@ -22,8 +22,9 @@ Select the boilerplate/template you want, and wait until the process is done.
 If you need help?
   <br/> &nbsp;&nbsp;&nbsp;&nbsp; Run ```boilertemp --help``` for tips.
 
-<br/>
+<!-- <br/>
 <p> 
   <img src="https://i.ibb.co/jMYv16K/Merknad-2019-12-11-231214.png" alt="CLI_process" border="0" />
   <img src="https://i.ibb.co/K0BZnqg/Merknad-2019-12-11-2312133.png" alt="CLI-in_use" border="0" />
 </p>
+-->
