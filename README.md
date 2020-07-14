@@ -18,7 +18,7 @@ A Command line interface to kickstart your coding. The boilertemp-CLI lets you c
 
 --yes       Use default and accepting all questions
 --git       Initialize git for selected template
---intall    Automatically install dependencies, prefer npm
+--install   Automatically install dependencies, prefer npm
 ```
 
 ### How to use
