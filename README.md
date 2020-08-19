@@ -10,6 +10,10 @@ A Command line interface to kickstart your coding. The boilertemp-CLI lets you c
 ## Get started
 
 ### Installation
+Download [latest.tar.gz](https://github.com/JesperBry/boilertemp-CLI/releases/tag/v1.0), then
+```
+npm install <path to boilertemp-CLI-1.0.tar.gz>
+```
 
 ### Available flags
 
