@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const helmet = require("helmet");
 
 // require the const endpointName = require("./routes/api/endpointName"); here
 
@@ -9,6 +10,7 @@ const app = express();
 // Middleware for BodyParser
 // body-parser: extract the entire body portion of incoming request and exposes it on request.body
 app.use(bodyParser.json());
+app.use(helmet());
 
 // MongoDB config og connection
 const db = require("./config/keys").mongoURI;
@@ -16,7 +18,7 @@ const db = require("./config/keys").mongoURI;
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB Connected..."))
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
 // Uses the routes from routes/api/items.js
 //app.use("/api/endpointName", endpointName);
