@@ -14,15 +14,16 @@ const access = promisify(fs.access);
 const copy = promisify(ncp);
 
 async function copyTemplateFiles(options) {
-  return copy(options.templateDir, options.targetDir, {
-    clobber: false
-  });
+  const templateFiles = copy(options.templateDir, options.targetDir, {
+    clobber: false,
+  }).then(copy(options.serverDir, options.targetDir), { clobber: false });
+  return templateFiles;
 }
 
 // init git for project
 async function initGit(options) {
   const result = await execa("git", ["init"], {
-    cwd: options.targetDir
+    cwd: options.targetDir,
   });
   if (result.failed) {
     return Promise.reject(new Error("Failed to initialize git"));
@@ -30,19 +31,27 @@ async function initGit(options) {
 }
 
 // Creates the project
-exports.createProject = async function(options) {
+exports.createProject = async function (options) {
   options = {
     ...options,
-    targetDir: options.targetDir || process.cwd()
+    targetDir: options.targetDir || process.cwd(),
   };
 
   const currentFileUrl = path.dirname(__filename);
+
+  const serverDirectory = path.resolve(
+    new URL(currentFileUrl).pathname,
+    "./templates/server"
+  );
+
   const templateDirectory = path.resolve(
     new URL(currentFileUrl).pathname,
     "./templates",
     options.template.toLowerCase()
   );
+
   options.templateDir = templateDirectory;
+  options.serverDir = serverDirectory;
 
   try {
     await access(templateDirectory, fs.constants.R_OK); // Check if the specified template is available
@@ -55,28 +64,28 @@ exports.createProject = async function(options) {
   const installSubTasks = new Listr([
     {
       title: "Installing server dependencies",
-      task: () => projectInstall({ cwd: options.targetDir, prefer: "npm" })
+      task: () => projectInstall({ cwd: options.targetDir, prefer: "npm" }),
     },
     {
       title: "Installing client dependencies",
       task: () =>
         projectInstall({
           cwd: path.join(options.targetDir, "/client"),
-          prefer: "npm"
-        })
-    }
+          prefer: "npm",
+        }),
+    },
   ]);
 
   console.log("\n");
   const tasks = new Listr([
     {
       title: "Copy project files",
-      task: () => copyTemplateFiles(options)
+      task: () => copyTemplateFiles(options),
     },
     {
       title: "Initialized git for project",
       task: () => initGit(options),
-      enabled: () => options.git
+      enabled: () => options.git,
     },
     {
       title: "Installing dependencies",
@@ -84,8 +93,8 @@ exports.createProject = async function(options) {
       skip: () =>
         !options.runInstall
           ? "Pass --install to automatically install dependencies"
-          : undefined
-    }
+          : undefined,
+    },
   ]);
 
   await tasks.run();

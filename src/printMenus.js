@@ -1,6 +1,6 @@
 const chalk = require("chalk");
 
-exports.cmdPrints = function() {
+exports.cmdPrints = function () {
   console.log("\n Inside this directory, you can run several commands: \n");
   console.log(
     "\t %s \t\t Run the dev environment (server + client) \n",
@@ -18,7 +18,7 @@ exports.cmdPrints = function() {
   );
 };
 
-exports.helpMenu = function() {
+exports.helpMenu = function () {
   console.log("\n Available arguments: \n");
   console.log(
     "\t %s \t\t Use default and accepting all questions \n",
