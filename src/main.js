@@ -20,6 +20,19 @@ async function copyTemplateFiles(options) {
   return templateFiles;
 }
 
+async function copyReduxFiles(options) {
+  const reduxFiles = copy(
+    path.join(options.reduxDir, "pkg"),
+    path.join(options.targetDir, "client")
+  ).then(
+    copy(
+      path.join(options.reduxDir, "structure"),
+      path.join(options.targetDir, "client", "src")
+    )
+  );
+  return reduxFiles;
+}
+
 // init git for project
 async function initGit(options) {
   const result = await execa("git", ["init"], {
@@ -50,8 +63,14 @@ exports.createProject = async function (options) {
     options.template.toLowerCase()
   );
 
+  const reduxDirectory = path.resolve(
+    new URL(currentFileUrl).pathname,
+    "./templates/redux"
+  );
+
   options.templateDir = templateDirectory;
   options.serverDir = serverDirectory;
+  options.reduxDir = reduxDirectory;
 
   try {
     await access(templateDirectory, fs.constants.R_OK); // Check if the specified template is available
@@ -81,6 +100,10 @@ exports.createProject = async function (options) {
     {
       title: "Copy project files",
       task: () => copyTemplateFiles(options),
+    },
+    {
+      title: "Adding Redux to client",
+      task: () => copyReduxFiles(options),
     },
     {
       title: "Initialized git for project",
