@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -23,6 +25,6 @@ mongoose
 // Uses the routes from routes/api/items.js
 //app.use("/api/endpointName", endpointName);
 
-const port = 5000; // Sets port for server
+const port = process.env.PORT || 5000; // Sets port for server
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
