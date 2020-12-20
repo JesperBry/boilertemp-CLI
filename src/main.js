@@ -14,20 +14,26 @@ const access = promisify(fs.access);
 const copy = promisify(ncp);
 
 async function copyTemplateFiles(options) {
-  const templateFiles = copy(options.templateDir, options.targetDir, {
+  const templateFiles = copy(options.clientDir, options.targetDir, {
     clobber: false,
-  }).then(copy(options.serverDir, options.targetDir), { clobber: false });
+  }).then(
+    copy(options.templateDir, options.targetDir, {
+      clobber: false,
+    })
+  );
   return templateFiles;
 }
 
 async function copyReduxFiles(options) {
   const reduxFiles = copy(
     path.join(options.reduxDir, "pkg"),
-    path.join(options.targetDir, "client")
+    path.join(options.targetDir, "client"),
+    { clobber: true }
   ).then(
     copy(
       path.join(options.reduxDir, "structure"),
-      path.join(options.targetDir, "client", "src")
+      path.join(options.targetDir, "client", "src"),
+      { clobber: true }
     )
   );
   return reduxFiles;
@@ -52,9 +58,9 @@ exports.createProject = async function (options) {
 
   const currentFileUrl = path.dirname(__filename);
 
-  const serverDirectory = path.resolve(
+  const clientDirectory = path.resolve(
     new URL(currentFileUrl).pathname,
-    "./templates/server"
+    "./templates/cra"
   );
 
   const templateDirectory = path.resolve(
@@ -69,7 +75,7 @@ exports.createProject = async function (options) {
   );
 
   options.templateDir = templateDirectory;
-  options.serverDir = serverDirectory;
+  options.clientDir = clientDirectory;
   options.reduxDir = reduxDirectory;
 
   try {
@@ -104,6 +110,7 @@ exports.createProject = async function (options) {
     {
       title: "Adding Redux to client",
       task: () => copyReduxFiles(options),
+      enabled: () => options.redux,
     },
     {
       title: "Initialized git for project",
