@@ -1,7 +1,6 @@
 require("dotenv").config();
 
 const express = require("express");
-const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
 
@@ -12,15 +11,9 @@ const app = express();
 // Middleware for BodyParser
 // body-parser: extract the entire body portion of incoming request and exposes it on request.body
 app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // parsing incoming requests with urlencoded based body-parser
 app.use(helmet());
-
-// MongoDB config og connection
-const db = require("./config/keys").mongoURI;
-
-mongoose
-  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("MongoDB Connected..."))
-  .catch((err) => console.log(err));
 
 // Uses the routes from routes/api/items.js
 //app.use("/api/endpointName", endpointName);

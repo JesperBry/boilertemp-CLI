@@ -13,10 +13,10 @@ function parseArgsToOptions(rawArgs) {
       "--help": Boolean,
       "-g": "--git",
       "-y": "--yes",
-      "-i": "--install"
+      "-i": "--install",
     },
     {
-      argv: rawArgs.slice(2)
+      argv: rawArgs.slice(2),
     }
   );
   return {
@@ -24,7 +24,7 @@ function parseArgsToOptions(rawArgs) {
     git: args["--git"] || false,
     template: args._[0],
     runInstall: args["--install"] || false,
-    help: args["--help"] || false
+    help: args["--help"] || false,
   };
 }
 
@@ -33,7 +33,7 @@ async function promptForMissingOptions(options) {
   if (options.skipPrompts) {
     return {
       ...options,
-      template: options.template || defaultTemplate
+      template: options.template || defaultTemplate,
     };
   }
 
@@ -43,17 +43,24 @@ async function promptForMissingOptions(options) {
       type: "list",
       name: "template",
       message: "Please choose which project stack to use",
-      choices: ["MERN", "MERN + Redux"],
-      default: defaultTemplate
+      choices: ["MERN", "ERN + MySQL"],
+      default: defaultTemplate,
     });
   }
+
+  questions.push({
+    type: "confirm",
+    name: "redux",
+    message: "Do you want to add Redux to the selected template?",
+    default: false,
+  });
 
   if (!options.git) {
     questions.push({
       type: "confirm",
       name: "git",
       message: "Do you want to initialize git for this template?",
-      default: false
+      default: false,
     });
   }
 
@@ -61,7 +68,8 @@ async function promptForMissingOptions(options) {
   return {
     ...options,
     template: options.template || ans.template,
-    git: options.git || ans.git
+    redux: ans.redux,
+    git: options.git || ans.git,
   };
 }
 
