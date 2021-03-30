@@ -1,16 +1,20 @@
 require("dotenv").config();
 
 const express = require("express");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const helmet = require("helmet");
+const cors = require("cors");
 
 // require the const endpointName = require("./routes/api/endpointName"); here
 
 const app = express();
 
-// Middleware for BodyParser
-// body-parser: extract the entire body portion of incoming request and exposes it on request.body
-app.use(bodyParser.json());
+// Middleware
+app.use(
+  cors({
+    origin: process.env.CORS_URL,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // parsing incoming requests with urlencoded based body-parser
 app.use(helmet());
