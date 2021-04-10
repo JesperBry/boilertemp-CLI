@@ -7,6 +7,10 @@
 # boilertemp-CLI
 A Command line interface to kickstart your coding. The boilertemp-CLI lets you create boilerplate-code from templates, and is a easy way to get going fast.
 
+### Included boilerplates (option to add Redux to all):
+  - MERN-stack
+  - React, Node, Express, MySQL
+
 ## Get started
 
 ### Installation
