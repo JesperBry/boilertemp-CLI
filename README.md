@@ -16,7 +16,7 @@ A Command line interface to kickstart your coding. The boilertemp-CLI lets you c
 ### Installation
 Download [latest.tar.gz](https://github.com/JesperBry/boilertemp-CLI/releases), then
 ```
-npm install <path to boilertemp-2.0.0.tgz> --global
+npm install <path to boilertemp-2.0.1.tgz> --global
 ```
 
 ### Available flags
