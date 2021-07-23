@@ -1,8 +1,11 @@
-const arg = require("arg");
-const inquirer = require("inquirer");
-
-const { createProject } = require("./main");
-const { helpMenu } = require("./printMenus");
+import arg from "arg";
+import inquirer from "inquirer";
+//const arg = require("arg");
+//const inquirer = require("inquirer");
+import { createProject } from "./main.js";
+import { helpMenu } from "./printMenus.js";
+//const { createProject } = require("./main");
+//const { helpMenu } = require("./printMenus");
 
 function parseArgsToOptions(rawArgs) {
   const args = arg(
@@ -83,4 +86,5 @@ async function cli(args) {
   }
 }
 
-module.exports.cli = cli;
+//module.exports.cli = cli;
+export default cli;

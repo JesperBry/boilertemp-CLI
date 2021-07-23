@@ -1,17 +1,30 @@
-const chalk = require("chalk");
-const fs = require("fs");
-const ncp = require("ncp");
-const path = require("path");
-const { promisify } = require("util");
-const shell = require("shelljs");
-const Listr = require("listr");
-const { projectInstall } = require("pkg-install");
-const execa = require("execa");
+// const chalk = require("chalk");
+// const fs = require("fs");
+// const ncp = require("ncp");
+// const path = require("path");
+// const { promisify } = require("util");
+// const shell = require("shelljs");
+// const Listr = require("listr");
+// const { projectInstall } = require("pkg-install");
+// const execa = require("execa");
 
-const { cmdPrints } = require("./printMenus.js");
+// const { cmdPrints } = require("./printMenus.js");
+
+import chalk from "chalk";
+import fs from "fs";
+import ncp from "ncp";
+import path from "path";
+import { promisify } from "util";
+import Listr from "listr";
+import { projectInstall } from "pkg-install";
+import execa from "execa";
+import { fileURLToPath } from "url";
+
+import { cmdPrints } from "./printMenus.js";
 
 const access = promisify(fs.access);
 const copy = promisify(ncp);
+const __filename = fileURLToPath(import.meta.url);
 
 async function copyTemplateFiles(options) {
   const templateFiles = copy(options.clientDir, options.targetDir, {
@@ -50,7 +63,7 @@ async function initGit(options) {
 }
 
 // Creates the project
-exports.createProject = async function (options) {
+export const createProject = async function (options) {
   options = {
     ...options,
     targetDir: options.targetDir || process.cwd(),

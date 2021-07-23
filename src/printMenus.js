@@ -1,6 +1,7 @@
-const chalk = require("chalk");
+//const chalk = require("chalk");
+import chalk from "chalk";
 
-exports.cmdPrints = function () {
+export const cmdPrints = function () {
   console.log("\n Inside this directory, you can run several commands: \n");
   console.log(
     "\t %s \t\t Run the dev environment (server + client) \n",
@@ -18,7 +19,7 @@ exports.cmdPrints = function () {
   );
 };
 
-exports.helpMenu = function () {
+export const helpMenu = function () {
   console.log("\n Available arguments: \n");
   console.log(
     "\t %s \t\t Use default and accepting all questions \n",
